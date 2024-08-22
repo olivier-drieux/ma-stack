@@ -66,4 +66,11 @@
   body {
     @apply bg-background text-foreground;
   }
+  /* Special CSS for tiptap heading */
+  h2.tiptap-heading {
+      @apply text-2xl font-bold mt-4 mb-2;
+  }
+  h3.tiptap-heading {
+      @apply text-xl font-bold mt-4 mb-2;
+  }
 }

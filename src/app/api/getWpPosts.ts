@@ -1,9 +1,9 @@
 "use server";
 
 import { db } from "@/lib/drizzle/drizzle";
-import { posts } from "@/lib/drizzle/schema/post";
+import { type Post, posts } from "@/lib/drizzle/schema/post";
+import wordpress from "@/lib/wordpress";
 import { inArray } from "drizzle-orm";
-import wpApi from "wpapi";
 
 interface WpPost {
 	id: number;
@@ -13,30 +13,35 @@ interface WpPost {
 	link: string;
 }
 
+export interface WpPostWithPost extends WpPost {
+	post?: Post;
+}
+
 export default async function getWpPosts() {
-	const wp = new wpApi({
-		endpoint: "http://localhost:8080/wp-json/",
-	});
+	try {
+		const wpPosts: Array<WpPost> = await wordpress.posts().get();
 
-	const wpPosts: Array<WpPost> = await wp.posts().get();
+		const dbPosts = await db
+			.select()
+			.from(posts)
+			.where(
+				inArray(
+					posts.wordPressId,
+					wpPosts.map((wpPost) => wpPost.id),
+				),
+			);
 
-	const dbPosts = await db
-		.select()
-		.from(posts)
-		.where(
-			inArray(
-				posts.wordPressId,
-				wpPosts.map((wpPost) => wpPost.id),
-			),
-		);
+		const mappedPosts = wpPosts.map((wpPost) => {
+			const dbPost = dbPosts.find((dbPost) => dbPost.wordPressId === wpPost.id);
+			return {
+				...wpPost,
+				post: dbPost ?? null,
+			};
+		});
 
-	const mappedPosts = wpPosts.map((wpPost) => {
-		const dbPost = dbPosts.find((dbPost) => dbPost.wordPressId === wpPost.id);
-		return {
-			...wpPost,
-			post: dbPost ?? null,
-		};
-	});
-
-	return mappedPosts;
+		return mappedPosts as WpPostWithPost[];
+	} catch (error) {
+		console.error(error);
+		return [];
+	}
 }

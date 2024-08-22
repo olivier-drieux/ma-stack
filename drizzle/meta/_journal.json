@@ -15,6 +15,27 @@
       "when": 1724257453960,
       "tag": "0001_minor_kid_colt",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1724333057368,
+      "tag": "0002_plain_ultimo",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1724339615249,
+      "tag": "0003_jazzy_slapstick",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1724340332087,
+      "tag": "0004_typical_silverclaw",
+      "breakpoints": true
     }
   ]
 }

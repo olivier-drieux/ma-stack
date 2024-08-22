@@ -1,70 +1,52 @@
 import getWpPosts from "@/app/api/getWpPosts";
 import {
-	TableCaption,
-	TableHeader,
-	TableRow,
-	TableHead,
+	Table,
 	TableBody,
+	TableCaption,
 	TableCell,
 	TableFooter,
-	Table,
+	TableHead,
+	TableHeader,
+	TableRow,
 } from "@/components/ui/table";
-import { Check, X } from "lucide-react";
-import {
-	Tooltip,
-	TooltipContent,
-	TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { HoverCardTrigger } from "../ui/hover-card";
+import { Sparkles } from "lucide-react";
+import Link from "next/link";
+import { Button } from "../ui/button";
+import PostRow from "./PostRow";
 
 export default async function WordPressPostsListing() {
 	const wpPosts = await getWpPosts();
 
 	return (
-		<Table>
-			<TableCaption>A list of your recent invoices.</TableCaption>
-			<TableHeader>
-				<TableRow>
-					<TableHead />
-					<TableHead className="w-[100px]">Title</TableHead>
-					<TableHead>Status</TableHead>
-					<TableHead>Lien</TableHead>
-				</TableRow>
-			</TableHeader>
-			<TableBody>
-				{wpPosts.map((wpPost) => (
-					<TableRow key={wpPost.id}>
-						<TableCell>
-							{wpPost.post?.id ? (
-								<Tooltip>
-									<TooltipTrigger asChild>
-										<Check className="text-green-50" />
-									</TooltipTrigger>
-									<TooltipContent>Linked with app</TooltipContent>
-								</Tooltip>
-							) : (
-								<HoverCard>
-									<HoverCardTrigger asChild>
-										<X className="text-red-500" />
-									</HoverCardTrigger>
-									<TooltipContent>Not linked with app</TooltipContent>
-								</HoverCard>
-							)}
-						</TableCell>
-						<TableCell className="font-medium">
-							{wpPost.title.rendered}
-						</TableCell>
-						<TableCell>{wpPost.status}</TableCell>
-						<TableCell>{wpPost.link}</TableCell>
+		<div className="min-h-screen w-screen">
+			<Button className="ml-auto" asChild>
+				<Link href="posts/generate">
+					<Sparkles className="mr-2 h-4 w-4" />
+					Generate a new post
+				</Link>
+			</Button>
+			<Table>
+				<TableCaption>A list of your recent invoices.</TableCaption>
+				<TableHeader>
+					<TableRow>
+						<TableHead>Linked</TableHead>
+						<TableHead className="w-[300px]">Title</TableHead>
+						<TableHead>Status</TableHead>
+						<TableHead className="w-[300px]">Lien</TableHead>
 					</TableRow>
-				))}
-			</TableBody>
-			<TableFooter>
-				<TableRow>
-					<TableCell colSpan={3}>Total</TableCell>
-					<TableCell className="text-right">$2,500.00</TableCell>
-				</TableRow>
-			</TableFooter>
-		</Table>
+				</TableHeader>
+				<TableBody>
+					{wpPosts.map((wpPost) => (
+						<PostRow key={wpPost.id} wpPost={wpPost} />
+					))}
+				</TableBody>
+				<TableFooter>
+					<TableRow>
+						<TableCell colSpan={3}>Total</TableCell>
+						<TableCell className="text-right">$2,500.00</TableCell>
+					</TableRow>
+				</TableFooter>
+			</Table>
+		</div>
 	);
 }

@@ -31,7 +31,6 @@ export default function Home() {
 	const formAction = useAction(createUser, {
 		onError: ({ error }) => {
 			if (error.validationErrors) {
-				console.log(Object.entries(error.validationErrors));
 				for (const [name, message] of Object.entries(error.validationErrors)) {
 					form.setError(name as keyof CreateUser, { message: message[0] });
 				}
