@@ -1,0 +1,1 @@
+ALTER TABLE `posts` MODIFY COLUMN `status` enum('draft','generating','generated','failed','publish','future') NOT NULL DEFAULT 'draft';

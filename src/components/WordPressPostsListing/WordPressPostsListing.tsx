@@ -26,7 +26,6 @@ export default async function WordPressPostsListing() {
 				</Link>
 			</Button>
 			<Table>
-				<TableCaption>A list of your recent invoices.</TableCaption>
 				<TableHeader>
 					<TableRow>
 						<TableHead>Linked</TableHead>
@@ -42,8 +41,11 @@ export default async function WordPressPostsListing() {
 				</TableBody>
 				<TableFooter>
 					<TableRow>
-						<TableCell colSpan={3}>Total</TableCell>
-						<TableCell className="text-right">$2,500.00</TableCell>
+						<TableCell>
+							{wpPosts.filter((p) => !p.post).length} non-linked posts
+						</TableCell>
+						<TableCell colSpan={2} />
+						<TableCell className="text-right">{wpPosts.length} posts</TableCell>
 					</TableRow>
 				</TableFooter>
 			</Table>

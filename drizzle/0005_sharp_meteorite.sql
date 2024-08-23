@@ -1,0 +1,1 @@
+ALTER TABLE `posts` ADD `status` enum('draft','generating','generated','failed','publish','future') DEFAULT 'draft';

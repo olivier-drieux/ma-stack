@@ -3,7 +3,6 @@
 import clientAction from "@/lib/clientAction";
 import { db } from "@/lib/drizzle/drizzle";
 import { users } from "@/lib/drizzle/schema/user";
-import { testQueue } from "@/lib/queue";
 import { createUserSchema } from "@/lib/zod/createUserSchema";
 import { eq } from "drizzle-orm";
 
@@ -37,8 +36,7 @@ const serverSchema = createUserSchema
 
 export const createUser = clientAction(serverSchema).action(
 	async ({ parsedInput }) => {
-		console.log("Add User creation to queue");
-		const job = await testQueue.add("createUser", parsedInput);
-		console.log("Job added", job.id);
+		await new Promise((resolve) => setTimeout(resolve, 10000));
+		await db.insert(users).values(parsedInput);
 	},
 );

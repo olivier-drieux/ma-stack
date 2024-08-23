@@ -7,7 +7,7 @@ import {
 import { zodAdapter } from "next-safe-action/adapters/zod";
 import type { ZodSchema } from "zod";
 
-const clientAction = (schema: ZodSchema) =>
+const clientAction = <Schema extends ZodSchema>(schema: Schema) =>
 	createSafeActionClient({
 		validationAdapter: zodAdapter(),
 	}).schema(schema, {

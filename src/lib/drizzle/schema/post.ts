@@ -1,5 +1,12 @@
 import { relations } from "drizzle-orm";
-import { int, mysqlTable, text, varchar } from "drizzle-orm/mysql-core";
+import {
+	boolean,
+	int,
+	mysqlEnum,
+	mysqlTable,
+	text,
+	varchar,
+} from "drizzle-orm/mysql-core";
 import { users } from "./user";
 
 export const posts = mysqlTable("posts", {
@@ -9,6 +16,16 @@ export const posts = mysqlTable("posts", {
 	keyword: varchar("keyword", { length: 255 }),
 	title: text("title"),
 	content: text("content"),
+	status: mysqlEnum("status", [
+		"draft",
+		"generating",
+		"generated",
+		"failed",
+		"publish",
+		"future",
+	])
+		.default("draft")
+		.notNull(),
 });
 
 export const postsRelations = relations(posts, ({ one }) => ({

@@ -36,6 +36,20 @@
       "when": 1724340332087,
       "tag": "0004_typical_silverclaw",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1724416243990,
+      "tag": "0005_sharp_meteorite",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1724416279677,
+      "tag": "0006_superb_sumo",
+      "breakpoints": true
     }
   ]
 }
