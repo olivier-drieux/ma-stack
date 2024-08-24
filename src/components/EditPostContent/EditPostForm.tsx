@@ -15,10 +15,10 @@ import { Input } from "@/components/ui/input";
 import type { Post } from "@/lib/drizzle/schema/post";
 import { editPostSchema } from "@/lib/zod/editPostSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { useToast } from "../ui/use-toast";
-import { Loader2 } from "lucide-react";
 
 export default function EditPostForm({ post }: { post: Post }) {
 	const form = useForm({

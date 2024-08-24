@@ -9,7 +9,7 @@
     "lint": "npx @biomejs/biome lint ./src",
     "db:generate": "npx drizzle-kit generate",
     "db:migrate": "npx drizzle-kit migrate",
-    "dev:services": "sudo service redis-server start && sudo service mariadb start"
+    "dev:services": "sudo service redis-server start && sudo service mariadb start && sudo docker start wordpress"
   },
   "dependencies": {
     "@bull-board/express": "^5.21.4",

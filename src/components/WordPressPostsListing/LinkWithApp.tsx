@@ -1,9 +1,9 @@
 "use client";
 
 import { linkWpPost } from "@/app/api/linkWpPost";
-import { Button } from "../ui/button";
-import { useAction } from "next-safe-action/hooks";
 import { Loader2 } from "lucide-react";
+import { useAction } from "next-safe-action/hooks";
+import { Button } from "../ui/button";
 
 export default function LinkWithApp({ postId }: { postId: number }) {
 	const action = useAction(linkWpPost);

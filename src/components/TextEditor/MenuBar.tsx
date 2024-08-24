@@ -1,19 +1,19 @@
 import type { Editor } from "@tiptap/react";
 import {
+	AlignCenter,
+	AlignJustify,
+	AlignLeft,
+	AlignRight,
+	Bold,
 	Heading2,
 	Heading3,
-	Bold,
 	Italic,
-	Strikethrough,
 	List,
 	ListOrdered,
-	AlignLeft,
-	AlignCenter,
-	AlignRight,
-	AlignJustify,
+	Strikethrough,
 } from "lucide-react";
-import { Toggle } from "../ui/toggle";
 import { Separator } from "../ui/separator";
+import { Toggle } from "../ui/toggle";
 
 export default function MenuBar({ editor }: { editor: Editor }) {
 	return (
