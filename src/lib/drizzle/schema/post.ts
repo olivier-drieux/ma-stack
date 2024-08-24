@@ -17,14 +17,15 @@ export const posts = mysqlTable("posts", {
 	title: text("title"),
 	content: text("content"),
 	status: mysqlEnum("status", [
-		"draft",
+		"in_queue",
 		"generating",
 		"generated",
 		"failed",
+		"draft",
 		"publish",
 		"future",
 	])
-		.default("draft")
+		.default("in_queue")
 		.notNull(),
 });
 

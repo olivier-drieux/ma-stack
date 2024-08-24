@@ -1,10 +1,10 @@
 "use client";
 
-import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import Loader from "../Loader/Loader";
 
-export default function PostGenerating({ postId }: { postId: number }) {
+export default function PostGeneratingLoader({ postId }: { postId: number }) {
 	const router = useRouter();
 
 	useEffect(() => {
@@ -26,10 +26,5 @@ export default function PostGenerating({ postId }: { postId: number }) {
 		return () => clearInterval(intervalId);
 	}, [postId, router]);
 
-	return (
-		<div className="flex flex-col items-center justify-center h-screen gap-2">
-			<p className="text-lg font-semibold">Post is being generated</p>
-			<Loader2 className="animate-spin w-10 h-10" />
-		</div>
-	);
+	return <Loader fullScreen message="Post is being generated" />;
 }

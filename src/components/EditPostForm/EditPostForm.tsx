@@ -12,7 +12,6 @@ import {
 	FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import type { Post } from "@/lib/drizzle/schema/post";
 import { editPostSchema } from "@/lib/zod/editPostSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
@@ -20,12 +19,24 @@ import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { useToast } from "../ui/use-toast";
 
-export default function EditPostForm({ post }: { post: Post }) {
+interface EditPostFormProps {
+	postId: number;
+	title: string | null;
+	content: string | null;
+	wordPressId: number | null;
+}
+
+export default function EditPostForm({
+	postId,
+	title,
+	content,
+	wordPressId,
+}: EditPostFormProps) {
 	const form = useForm({
 		resolver: zodResolver(editPostSchema),
 		defaultValues: {
-			title: post.title ?? "",
-			content: post.content ?? "",
+			title: title ?? "",
+			content: content ?? "",
 		},
 	});
 
@@ -75,7 +86,7 @@ export default function EditPostForm({ post }: { post: Post }) {
 					type="button"
 					disabled={action.isPending}
 					onClick={form.handleSubmit((data) =>
-						action.execute({ ...data, postId: post.id }),
+						action.execute({ ...data, postId }),
 					)}
 				>
 					{action.isPending && (
@@ -83,12 +94,12 @@ export default function EditPostForm({ post }: { post: Post }) {
 					)}
 					Save
 				</Button>
-				{!post.wordPressId && (
+				{!wordPressId && (
 					<Button
 						type="button"
 						disabled={action.isPending}
 						onClick={form.handleSubmit((data) =>
-							action.execute({ ...data, postId: post.id, publish: true }),
+							action.execute({ ...data, postId, publish: true }),
 						)}
 					>
 						{action.isPending && (

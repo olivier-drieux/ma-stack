@@ -6,6 +6,7 @@ import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 
 export async function getPost(postId: number) {
+	// await new Promise((resolve) => setTimeout(resolve, 3000));
 	const existingPost = await db
 		.select()
 		.from(posts)

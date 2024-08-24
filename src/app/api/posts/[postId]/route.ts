@@ -2,7 +2,6 @@ import { getPost } from "@/app/api/getPost";
 import { notFound } from "next/navigation";
 import { NextResponse } from "next/server";
 
-console.log("test");
 export async function GET(
 	_: Request,
 	{ params }: { params: { postId: number } },
@@ -14,6 +13,9 @@ export async function GET(
 	}
 
 	return NextResponse.json({
-		isReadyToEdit: post.status !== "generating" && post.status !== "failed",
+		isReadyToEdit:
+			post.status !== "in_queue" &&
+			post.status !== "generating" &&
+			post.status !== "failed",
 	});
 }

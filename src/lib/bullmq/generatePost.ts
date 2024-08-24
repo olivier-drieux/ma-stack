@@ -31,12 +31,12 @@ export const generatePostJob = async (
 		throw new Error(`Post n°${job.data.id} not found`);
 	}
 
-	if (post.status !== "draft") {
-		job.log(`Post n°${job.data.id} is not in draft status`);
-		throw new Error(`Post n°${job.data.id} is not in draft status`);
-	}
-
 	try {
+		if (post.status !== "in_queue") {
+			job.log(`Post n°${job.data.id} is not in "in_queue" status`);
+			throw new Error(`Post n°${job.data.id} is not in "in_queue" status`);
+		}
+
 		if (!post.keyword) {
 			job.log(`Post n°${job.data.id} has no keyword`);
 			throw new Error(`Post n°${job.data.id} has no keyword`);
@@ -44,7 +44,11 @@ export const generatePostJob = async (
 
 		job.log("Generating post...");
 
-		db.update(posts).set({ status: "generating" }).where(eq(posts.id, post.id));
+		await db
+			.update(posts)
+			.set({ status: "generating" })
+			.where(eq(posts.id, post.id))
+			.execute();
 
 		const titlePrompt = getPromptForTitle(post.keyword);
 		const title = (
