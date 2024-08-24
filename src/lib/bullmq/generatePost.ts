@@ -117,7 +117,7 @@ const getPromptForContent = (keyword: string, title: string) => {
 		system:
 			"Tu es un expert en marketing digital, tu es professionnel de l'e-commerce et tu es expert en la création de contenu pour article de blog.",
 		user: `
-        Tu dois créer un article de blog sur le sujet "${keyword}" dont le titre est "${title}".
+        Tu dois créer le contenu de la balise HTML <body> d'un article de blog sur le sujet "${keyword}" dont le titre est "${title}".
         L'article doit contenir au moins 1000 mots.
         L'article doit contenir des titres et des paragraphes.
         Les mots-clés forts doivent être utilisés dans les titres et les paragraphes en gras.
