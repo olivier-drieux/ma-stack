@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import Header from "@/components/Header/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,9 +18,16 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en">
+		<html lang="fr">
 			<body className={inter.className}>
-				<TooltipProvider>{children}</TooltipProvider>
+				<TooltipProvider>
+					<div className="flex flex-col sm:flex-row h-screen w-screen overflow-hidden">
+						<Header />
+						<main className="flex-1 p-6 min-h-screen overflow-auto">
+							{children}
+						</main>
+					</div>
+				</TooltipProvider>
 				<Toaster />
 			</body>
 		</html>
