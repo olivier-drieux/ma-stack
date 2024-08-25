@@ -33,7 +33,6 @@ export function NavItem({
 			<TooltipTrigger asChild>
 				<Button
 					variant="ghost"
-					size="lg"
 					className={cn(
 						"w-full rounded-none",
 						className,

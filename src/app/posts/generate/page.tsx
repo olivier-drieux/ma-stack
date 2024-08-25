@@ -41,34 +41,34 @@ export default function GeneratePost() {
 	});
 
 	return (
-		<div className="min-h-screen w-screen flex justify-center items-center">
-			<Form {...form}>
-				<form onSubmit={form.handleSubmit(action.execute)}>
-					<FormField
-						control={form.control}
-						name="keyword"
-						render={({ field }) => (
-							<FormItem>
-								<FormLabel>Post keyword</FormLabel>
-								<FormControl>
-									<Input placeholder="Post keyword" {...field} />
-								</FormControl>
-								<FormDescription>
-									Enter a keyword to generate a post about it.
-								</FormDescription>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-
-					<Button type="submit" disabled={action.isPending}>
-						{action.isPending && (
-							<Loader2 className="mr-2 h-4 w-4 animate-spin" />
-						)}
-						Generate
-					</Button>
-				</form>
-			</Form>
-		</div>
+		<Form {...form}>
+			<form
+				onSubmit={form.handleSubmit(action.execute)}
+				className="flex flex-col justify-center gap-4"
+			>
+				<FormField
+					control={form.control}
+					name="keyword"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Post keyword</FormLabel>
+							<FormControl>
+								<Input placeholder="Post keyword" {...field} />
+							</FormControl>
+							<FormDescription>
+								Enter a keyword to generate a post about it.
+							</FormDescription>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				<Button type="submit" disabled={action.isPending}>
+					{action.isPending && (
+						<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+					)}
+					Generate
+				</Button>
+			</form>
+		</Form>
 	);
 }

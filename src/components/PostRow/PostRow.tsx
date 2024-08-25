@@ -15,6 +15,7 @@ import { Check, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { TableCell, TableRow } from "../ui/table";
 import LinkWithAppButton from "./LinkWithAppButton";
+import Link from "next/link";
 
 export default function PostRow({ wpPost }: { wpPost: WpPostWithPost }) {
 	const router = useRouter();
@@ -50,7 +51,16 @@ export default function PostRow({ wpPost }: { wpPost: WpPostWithPost }) {
 			</TableCell>
 			<TableCell className="font-medium">{wpPost.title.rendered}</TableCell>
 			<TableCell>{wpPost.status}</TableCell>
-			<TableCell>{wpPost.link}</TableCell>
+			<TableCell>
+				<Link
+					href={wpPost.link}
+					target="_blank"
+					rel="noopener noreferrer"
+					onClick={(e) => e.stopPropagation()}
+				>
+					{wpPost.link}
+				</Link>
+			</TableCell>
 		</TableRow>
 	);
 }
