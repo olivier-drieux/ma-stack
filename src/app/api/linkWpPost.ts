@@ -3,6 +3,7 @@
 import clientAction from "@/lib/clientAction";
 import { db } from "@/lib/drizzle/drizzle";
 import { posts } from "@/lib/drizzle/schema/post";
+import wordpress from "@/lib/wordpress";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
@@ -22,17 +23,14 @@ export const linkWpPost = clientAction(z.object({ postId: z.number() })).action(
 			return;
 		}
 
-		const response = await fetch(
-			`${process.env.WORDPRESS_API_URL}/posts/${postId}`,
-		);
-
-		const data = await response.json();
+		const data = await wordpress.posts().id(postId).get();
 
 		const newPost = await db.insert(posts).values({
-			...data,
-			id: undefined,
 			userId: 1,
 			wordPressId: postId,
+			status: data.status,
+			title: data.title.rendered,
+			content: data.content.rendered,
 		});
 
 		revalidatePath("/posts");

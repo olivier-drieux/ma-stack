@@ -5,7 +5,7 @@ import { Loader2 } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import { Button } from "../ui/button";
 
-export default function LinkWithApp({ postId }: { postId: number }) {
+export default function LinkWithAppButton({ postId }: { postId: number }) {
 	const action = useAction(linkWpPost);
 
 	return (

@@ -14,7 +14,7 @@ import {
 import { Check, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { TableCell, TableRow } from "../ui/table";
-import LinkWithApp from "./LinkWithApp";
+import LinkWithAppButton from "./LinkWithAppButton";
 
 export default function PostRow({ wpPost }: { wpPost: WpPostWithPost }) {
 	const router = useRouter();
@@ -43,7 +43,7 @@ export default function PostRow({ wpPost }: { wpPost: WpPostWithPost }) {
 						</HoverCardTrigger>
 						<HoverCardContent>
 							<p>Not linked with app</p>
-							<LinkWithApp postId={wpPost.id} />
+							<LinkWithAppButton postId={wpPost.id} />
 						</HoverCardContent>
 					</HoverCard>
 				)}
