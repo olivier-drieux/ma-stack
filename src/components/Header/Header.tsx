@@ -8,12 +8,14 @@ import {
 	ChevronLeft,
 	ChevronRight,
 	Home,
+	LogIn,
 	LogOut,
 	MenuIcon,
 	Newspaper,
 } from "lucide-react";
 import { useState } from "react";
 import { NavItem, type NavItemProps } from "./NavItem";
+import { useSession } from "next-auth/react";
 
 const navItemsProps: Record<string, NavItemProps> = {
 	home: {
@@ -26,16 +28,22 @@ const navItemsProps: Record<string, NavItemProps> = {
 		label: "Posts",
 		pathname: "/posts",
 	},
+	login: {
+		icon: LogIn,
+		label: "Sign in",
+		pathname: "/api/auth/signin",
+	},
 	logout: {
 		icon: LogOut,
-		label: "Logout",
-		pathname: "/logout",
+		label: "Sign out",
+		pathname: "/api/auth/signout",
 	},
 };
 
 export default function Header() {
 	const [isExpanded, setIsExpanded] = useState(true);
 	const [isSheetOpen, setIsSHeetOpen] = useState(false);
+	const session = useSession();
 
 	return (
 		<>
@@ -61,11 +69,19 @@ export default function Header() {
 							className="self-start"
 						/>
 					</div>
-					<NavItem
-						{...navItemsProps.logout}
-						isExpanded={isExpanded}
-						className="border-t border-border mt-auto self-start"
-					/>
+					{session.status === "authenticated" ? (
+						<NavItem
+							{...navItemsProps.logout}
+							isExpanded
+							className="border-t border-border mt-auto self-start"
+						/>
+					) : (
+						<NavItem
+							{...navItemsProps.login}
+							isExpanded
+							className="border-t border-border mt-auto self-start"
+						/>
+					)}
 					<Button
 						variant="ghost"
 						size="icon"
@@ -92,11 +108,19 @@ export default function Header() {
 								<Briefcase />
 								<NavItem {...navItemsProps.home} isExpanded className="mt-4" />
 								<NavItem {...navItemsProps.posts} isExpanded />
-								<NavItem
-									{...navItemsProps.logout}
-									isExpanded
-									className="mt-auto text-center"
-								/>
+								{session.status === "authenticated" ? (
+									<NavItem
+										{...navItemsProps.logout}
+										isExpanded
+										className="mt-auto text-center"
+									/>
+								) : (
+									<NavItem
+										{...navItemsProps.login}
+										isExpanded
+										className="mt-auto text-center"
+									/>
+								)}
 							</nav>
 						</SheetContent>
 					</Sheet>

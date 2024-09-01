@@ -16,8 +16,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 import { createUser } from "./api/createUser";
+import { useSession } from "next-auth/react";
 
 export default function Home() {
+	const session = useSession();
+	console.log("SESSION", session);
 	const form = useForm<CreateUser>({
 		resolver: zodResolver(createUserSchema),
 		defaultValues: {

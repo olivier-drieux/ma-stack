@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Header from "@/components/Header/Header";
+import NextAuthProvider from "@/components/NextAuthProvider/NextAuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,15 +21,17 @@ export default function RootLayout({
 	return (
 		<html lang="fr">
 			<body className={inter.className}>
-				<TooltipProvider>
-					<div className="flex flex-col sm:flex-row h-screen w-screen overflow-hidden">
-						<Header />
-						<main className="flex-1 p-6 min-h-screen overflow-auto">
-							{children}
-						</main>
-					</div>
-				</TooltipProvider>
-				<Toaster />
+				<NextAuthProvider>
+					<TooltipProvider>
+						<div className="flex flex-col sm:flex-row h-screen w-screen overflow-hidden">
+							<Header />
+							<main className="flex-1 p-6 min-h-screen overflow-auto">
+								{children}
+							</main>
+						</div>
+					</TooltipProvider>
+					<Toaster />
+				</NextAuthProvider>
 			</body>
 		</html>
 	);
